@@ -1,5 +1,5 @@
-import axios from "axios";
+import httpRequester from "@/libs/httpRequester";
 
 export const getItems = async () => {
-  return axios.get("/v1/api/items").catch((error) => error.response);
+  return httpRequester.get("/v1/api/items").catch((error) => error.response);
 };
