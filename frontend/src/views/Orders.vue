@@ -17,7 +17,7 @@ const load = async () => {
 };
 
 (async function onCreated() {
-    await load();
+    await load(); 
 })();
 
 </script>
