@@ -2,6 +2,7 @@ package kr.co.wikibook.gallery.order.service;
 
 import jakarta.transaction.Transactional;
 import kr.co.wikibook.gallery.cart.service.CartService;
+import kr.co.wikibook.gallery.common.util.EncryptionUtils;
 import kr.co.wikibook.gallery.item.dto.ItemRead;
 import kr.co.wikibook.gallery.item.service.ItemService;
 import kr.co.wikibook.gallery.order.dto.OrderRead;
@@ -57,9 +58,16 @@ public class BaseOrderService implements OrderService {
         // 주문 요청에 최종 결제 금액 입력
         orderReq.setAmount(amount);
 
+        // 결제 수단이 카드일 때 카드 번호 암호화
+        if (orderReq.getPayment().equals("card")) {
+            String cardNumber = orderReq.getCardNumber();
+            String removeDashCardNumber = cardNumber.replaceAll("-", "");
+            String encryptedCardNumber = EncryptionUtils.encrypt(removeDashCardNumber);
+            orderReq.setCardNumber(encryptedCardNumber);
+        }
+
         // 주문 저장
         Order order = orderRepository.save(orderReq.toEntity(memberId));
-
 
         // 주문 상품 데이터 생성
         List<OrderItem> newOrderItems = new ArrayList<>();
