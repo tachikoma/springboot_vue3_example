@@ -2,6 +2,7 @@ package kr.co.wikibook.gallery.block.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +19,7 @@ public class Block {
     private String token;
 
     @Column(nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime created;
 
     public Block() {
