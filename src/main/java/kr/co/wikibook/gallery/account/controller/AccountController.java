@@ -29,9 +29,9 @@ public class AccountController {
         String refreshToken = HttpUtils.getCookieValue(req, AccountConstants.REFRESH_TOKEN_NAME);
         if (StringUtils.hasLength(refreshToken) && TokenUtils.isValid(refreshToken) && !blockService.has(refreshToken)) {
             Map<String, Object> tokenBody = TokenUtils.getBody(refreshToken);
-            Integer memerId = (Integer) tokenBody.get(AccountConstants.MEMBER_ID_NAME);
-            accessToken = TokenUtils.generate(AccountConstants.ACCESS_TOKEN_NAME, AccountConstants.MEMBER_ID_NAME, memerId, AccountConstants.ACCESS_TOKEN_EXP_MINUTES);
-
+            assert tokenBody != null;
+            Integer memberId = (Integer) tokenBody.get(AccountConstants.MEMBER_ID_NAME);
+            accessToken = TokenUtils.generate(AccountConstants.ACCESS_TOKEN_NAME, AccountConstants.MEMBER_ID_NAME, memberId, AccountConstants.ACCESS_TOKEN_EXP_MINUTES);
         }
 
         return ResponseEntity.ok(accessToken);
