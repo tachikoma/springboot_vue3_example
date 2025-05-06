@@ -36,4 +36,9 @@ public class BaseMemberService implements MemberService {
 
         return null;
     }
+
+    @Override
+    public Member find(String loginId) {
+        return memberRepository.findByLoginId(loginId).orElse(null);
+    }
 }

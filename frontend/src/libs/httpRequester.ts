@@ -26,9 +26,9 @@ instance.interceptors.response.use((res) => {
             return instance(config);
         case 500:
             window.alert('서버에 문제가 발생했습니다.\n관리자에게 문의해주세요.');
-            break;
+            Promise.reject(error);
     }
-    return Promise.reject(error);
+    return Promise.resolve(error.response);
 });
 
 const generateConfig = (): { headers?: { authorization: string }; params?: any } => {

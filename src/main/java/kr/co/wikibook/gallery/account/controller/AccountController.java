@@ -9,7 +9,9 @@ import kr.co.wikibook.gallery.account.helper.AccountHelper;
 import kr.co.wikibook.gallery.block.service.BlockService;
 import kr.co.wikibook.gallery.common.util.HttpUtils;
 import kr.co.wikibook.gallery.common.util.TokenUtils;
+import kr.co.wikibook.gallery.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,7 @@ import java.util.Map;
 public class AccountController {
     private final AccountHelper accountHelper;
     private final BlockService blockService;
+    private final MemberService memberService;
 
     @GetMapping("/api/account/token")
     public ResponseEntity<?> regenerate(HttpServletRequest req) {
@@ -44,6 +47,12 @@ public class AccountController {
                 || !StringUtils.hasLength(joinRequest.getLoginPw())) {
             return ResponseEntity.badRequest().build();
         }
+
+        // Check if the login ID already exists
+        if (memberService.find(joinRequest.getLoginId()) != null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Login ID already exists");
+        }
+
         accountHelper.join(joinRequest);
         return ResponseEntity.ok().build();
     }
