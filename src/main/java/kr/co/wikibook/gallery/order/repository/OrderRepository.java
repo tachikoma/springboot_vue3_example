@@ -1,6 +1,8 @@
 package kr.co.wikibook.gallery.order.repository;
 
 import kr.co.wikibook.gallery.order.entity.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
-    List<Order> findAllByMemberIdOrderByIdDesc(Integer memberId);
+    Page<Order> findAllByMemberIdOrderByIdDesc(Integer memberId, Pageable pageable);
 
     Optional<Order> findByIdAndMemberId(Integer id, Integer memberId);
 }
