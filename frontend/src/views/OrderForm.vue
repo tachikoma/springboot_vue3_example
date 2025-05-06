@@ -25,6 +25,12 @@ const computedTotalPrice = computed(() => {
 // 주문하기
 const submit = async () => {
     
+    if (state.form.payment === 'card' && (state.form.cardNumber.trim().length != 16 || parseInt(state.form.cardNumber.trim()).toString() !== state.form.cardNumber.trim())) {
+        alert('카드번호는 16자리 숫자여야 합니다.');
+        document.getElementById('cardNumber')?.focus();
+        return;
+    } 
+    
     if (state.form.payment !== 'card') {
         state.form.cardNumber = '';
     }

@@ -14,12 +14,41 @@ const state = reactive({
 const router = useRouter();
 
 const submit = async () => {
+    if (!state.form.name.trim()) {
+        window.alert('이름을 입력해주세요.');
+        document.getElementById('name')?.focus();
+        return;
+    } else if (!state.form.loginId.trim()) {
+        window.alert('아이디를 입력해주세요.');
+        document.getElementById('loginId')?.focus();
+        return;
+    } else if (!state.form.loginPw.trim()) {
+        window.alert('비밀번호를 입력해주세요.');
+        document.getElementById('loginPw')?.focus();
+        return;
+    }
+
+    if (!state.form.loginId.includes('@')) {
+        window.alert('이메일 형식이 아닙니다.');
+        document.getElementById('loginId')?.focus();
+        return;
+    }
+    if (state.form.loginPw.length < 8) {
+        window.alert('비밀번호는 8자 이상이어야 합니다.');
+        document.getElementById('loginPw')?.focus();
+        return;
+    }
+
     const res = await join(state.form);
     if (res.status === 200) {
-        alert('회원가입이 완료되었습니다.');
+        window.alert('회원가입이 완료되었습니다.');
         await router.push('/');
+    } else if (res.status === 409) {
+        console.log(res);
+        window.alert('이미 사용중인 아이디입니다. 다른 아이디를 입력해주세요.');
+        document.getElementById('loginId')?.focus(); 
     } else {
-        alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+        window.alert('회원가입에 실패했습니다. 다시 시도해주세요.');
     }
 };
 </script>
