@@ -6,6 +6,8 @@ import kr.co.wikibook.gallery.order.dto.OrderRead;
 import kr.co.wikibook.gallery.order.dto.OrderRequest;
 import kr.co.wikibook.gallery.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/api/orders")
-    public ResponseEntity<?> readAll(HttpServletRequest req) {
+    public ResponseEntity<?> readAll(HttpServletRequest req, Pageable pageable) {
         // Get the member ID from the request
         Integer memberId = accountHelper.getMemberId(req);
         if (memberId == null) {
@@ -29,7 +31,7 @@ public class OrderController {
         }
 
         // Fetch all orders for the member
-        List<OrderRead> orders = orderService.findAll(memberId);
+        Page<OrderRead> orders = orderService.findAll(memberId, pageable);
 
         return ResponseEntity.ok(orders);
     }
