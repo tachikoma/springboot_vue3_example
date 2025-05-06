@@ -16,6 +16,28 @@ const router = useRouter();
 const accountStore = useAccountStore();
 
 const submit = async () => {
+    if (!state.form.loginId.trim()) {
+        alert('이메일을 입력해주세요.');
+        document.getElementById('loginId')?.focus();
+        return;
+    } else if (!state.form.loginPw.trim()) {
+        alert('패스워드를 입력해주세요.');
+        document.getElementById('loginPw')?.focus();
+        return;
+    }
+
+    if (!state.form.loginId.includes('@')) {
+        alert('이메일 형식이 아닙니다.');
+        document.getElementById('loginId')?.focus();
+        return;
+    } 
+
+    if (state.form.loginPw.length < 8) {
+        alert('비밀번호는 8자 이상이어야 합니다.');
+        document.getElementById('loginPw')?.focus();
+        return;
+    }
+    
     const res = await login(state.form);
 
     switch (res.status) {
