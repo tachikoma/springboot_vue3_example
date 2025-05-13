@@ -1,0 +1,1 @@
+import{h as t}from"./index-BOCYwNje.js";const o=r=>t.post("/v1/api/orders",r).catch(e=>e.response),a=r=>t.get("/v1/api/orders",r).catch(e=>e.response),c=r=>t.get(`/v1/api/orders/${r}`).catch(e=>e.response);export{c as a,o as c,a as g};

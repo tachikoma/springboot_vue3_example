@@ -10,7 +10,7 @@ const route = useRoute();
 const accountStore = useAccountStore();
 
 const checkAccount = async () => {
-    const res = await check();
+    const res: any = await check();
     if (res.status === 200) {
         accountStore.setChecked(true);
         accountStore.setLoggedIn(res.data === true);

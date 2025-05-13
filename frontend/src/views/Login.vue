@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { reactive } from 'vue';
 import { login } from '@/services/accountService';
 import { useRouter } from 'vue-router';
@@ -38,7 +38,7 @@ const submit = async () => {
         return;
     }
     
-    const res = await login(state.form);
+    const res: any = await login(state.form);
 
     switch (res.status) {
         case 200:

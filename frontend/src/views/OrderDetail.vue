@@ -11,14 +11,14 @@ const state = reactive({
         payment: '',
         amount: 0,
         created: '',
-        items: [],
+        items: [] as any[],
     },
 });
 
 const route = useRoute();
 
 (async function onCreated() {
-    const id = route.params.id;
+    const id: string  = route.params.id as string;
     console.log(id);
     const res = await getOrder(id);
     if (res.status === 200) {

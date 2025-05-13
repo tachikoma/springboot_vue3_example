@@ -1,16 +1,21 @@
-<script setup>
+<script setup lang="ts">
 import { addItem } from '@/services/cartService';
 import { useRouter } from 'vue-router';
 import { computed } from 'vue';
 import { useAccountStore } from '@/stores/account';
 
+import { type PropType } from 'vue';
+
 const props = defineProps({
     item: {
-        id: Number,
-        imgPath: String,
-        name: String,
-        price: Number,
-        discountPer: Number,
+        type: Object as PropType<{
+            id: number;
+            imgPath: string;
+            name: string;
+            price: number;
+            discountPer: number;
+        }>,
+        required: true
     }
 });
 

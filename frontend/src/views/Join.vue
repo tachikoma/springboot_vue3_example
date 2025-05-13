@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { reactive } from 'vue';
 import { join} from '@/services/accountService';
 import { useRouter } from 'vue-router';
@@ -39,7 +39,7 @@ const submit = async () => {
         return;
     }
 
-    const res = await join(state.form);
+    const res: any = await join(state.form);
     if (res.status === 200) {
         window.alert('회원가입이 완료되었습니다.');
         await router.push('/');

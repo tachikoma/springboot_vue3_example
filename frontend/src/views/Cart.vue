@@ -2,8 +2,16 @@
 import { getItems, removeItem } from '@/services/cartService';
 import { reactive } from 'vue';
 
+interface Product {
+    id: number;
+    name: string;
+    imgPath: string;
+    price: number;
+    discountPer: number;
+}
+
 const state = reactive({
-    items: [],
+    items: [] as Product[],
 });
 
 // 장바구니에 담긴 상품 목록 불러오기

@@ -5,12 +5,13 @@ import { createOrder } from '@/services/orderService';
 import { getItems } from '@/services/cartService';
 
 const state = reactive({
-    items: [],
+    items: [] as any[],
     form: {
         name: '',
         address: '',
         payment: 'card',
         cardNumber: '',
+        itemIds: [] as number[],
     },
 });
 
